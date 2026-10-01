@@ -116,7 +116,18 @@ apply_template () {
 		echo -e "done!\n"
 	done
 
+	reload_config
+
 	echo "all done!"
+}
+
+reload_config () {
+	# reload the .Xresources
+	xrdb -merge ~/.Xresources
+	# reload the bspwmrc config
+	bspc wm -r
+	# quit st
+	pkill -USR1 -x st
 }
 
 main () {

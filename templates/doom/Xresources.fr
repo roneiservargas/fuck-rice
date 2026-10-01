@@ -1,0 +1,29 @@
+! ============================================
+! Suckless Terminal (st) - Tema Inferno (Gogh)
+! ============================================
+
+st.font: %@ui.font% Mono:size=10
+st.background:         #D9D9D9
+st.foreground:         #270D06
+st.cursorColorReverse: #D9D9D9
+st.cursorColor: 			 #270D06
+
+st.color0:             #330000
+st.color1:             #FF3300
+st.color2:             #FF6600
+st.color3:             #FF9900
+st.color4:             #FFCC00
+st.color5:             #FF6600
+st.color6:             #FF9900
+st.color7:             #D9D9D9
+
+st.color8:             #663300
+st.color9:             #FF6633
+st.color10:            #FF9966
+st.color11:            #FFCC99
+st.color12:            #FFCC33
+st.color13:            #FF9966
+st.color14:            #FFCC99
+st.color15:            #D9D9D9
+
+st.termname:           st-256color

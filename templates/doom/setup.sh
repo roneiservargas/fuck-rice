@@ -1,14 +1,14 @@
 #!/bin/bash
 
 declare -A TEMPLATE_VARIABLES=(
-	["colors.bg"]="#030303"
-	["colors.bg-alt"]="#0F0F0F"
-	["colors.fg"]="#F8F8F8"
-	["colors.fg-alt"]="#3A3A3A"
-	["colors.accent"]="#5B9BF8"
+	["colors.bg"]="#330507"
+	["colors.bg-alt"]="#660B09"
+	["colors.fg"]="#F8C58F"
+	["colors.fg-alt"]="#C95922"
+	["colors.accent"]="#CD250B"
 	["ui.font"]="JetBrainsMono Nerd Font"
-	["gtk.theme"]="Colloid-Dark"
-	["gtk.icons"]="Colloid-Dark"
+	["gtk.theme"]="Colloid-Red-Dark"
+	["gtk.icons"]="Colloid-Red-Dark"
 	["gtk.font"]="Noto Sans 10"
 )
 

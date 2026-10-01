@@ -1,0 +1,84 @@
+* {
+	bg: %@colors.bg%;
+	bg-alt: %@colors.bg-alt%;
+	fg: %@colors.fg%;
+	fg-alt: %@colors.fg-alt%;
+	accent: %@colors.accent%;
+	font: "%@ui.font% 12";
+
+	background-color: transparent;
+	text-color: @fg;
+	margin: 0;
+	padding: 0;
+	spacing: 0;
+}
+
+window {
+	location: center;
+	anchor: center;
+	x-offset: 0;
+	y-offset: 0;
+	width: 500px;
+	background-color: @bg;
+	border: 2px;
+	border-color: @accent;
+}
+
+mainbox {
+	children: [ inputbar, message, listview ];
+	background-color: @bg;
+}
+
+inputbar {
+	background-color: @bg-alt;
+	padding: 14px 12px;
+	children: [ prompt, entry ];
+}
+
+prompt {
+	text-color: @accent;
+	margin: 0 10px 0 0;
+}
+
+entry {
+	placeholder: "Search...";
+	placeholder-color: @fg-alt;
+	vertical-align: 0.5;
+}
+
+message {
+	padding: 10px 12px;
+}
+
+textbox {
+	vertical-align: 0.5;
+	horizontal-align: 0.0;
+}
+
+listview {
+	lines: 10;
+	columns: 1;
+	fixed-height: false;
+	scrollbar: false;
+}
+
+element {
+	padding: 10px 14px;
+}
+
+element selected.normal {
+	background-color: @accent;
+}
+
+element-text {
+	vertical-align: 0.5;
+	background-color: inherit;
+	text-color: inherit;
+}
+
+element-icon {
+	size: 14px;
+	margin: 0 10px 0 0;
+	background-color: inherit;
+	vertical-align: 0.5;
+}

@@ -1,6 +1,6 @@
 super + Return
 	st
-# xfce4-terminal
+#	xfce4-terminal
 
 super + @space
 	rofi -show drun
