@@ -1,0 +1,145 @@
+#!/bin/bash
+#
+# fuck-rice (fr)
+#
+
+readonly PROG_NAME="fuck-rice (fr)"
+readonly PROG_VERSION="1.0.0"
+
+: "${FR:=$HOME/.local/share/fuck-rice}"
+
+readonly TEMPLATES_DIR="$FR/templates"
+
+err () {
+	echo "fr [err.]: $@"
+	exit 1
+}
+
+show_version () {
+	echo "$PROG_NAME -- version $PROG_VERSION"
+}
+
+show_help () {
+	echo "usage:"
+	echo "  fr <command> [arguments]..."
+	echo "" # blank line
+	echo "  apply, -a    apply a template."
+	echo "  help, -h     display this help."
+	echo "  version, -v  show the program version."
+	echo "" # blank line
+}
+
+apply_template () {
+	local template_name="$1"
+
+	local template_dir="$TEMPLATES_DIR/$template_name"
+	[[ ! -d "$template_dir" ]] && err "no such directory: $template_dir"
+
+	local setup_file="$template_dir/setup.sh"
+	[[ ! -f "$setup_file" ]] && err "no such file: $setup_file"
+	
+	# load setup script
+	. "$setup_file"
+
+	[[ -z "${!TEMPLATE_VARIABLES[@]}" ]] && err "template variables are not defined."
+	[[ -z "${!TEMPLATE_DESTINATION_DIRS[@]}" ]] && err "template destinations are not defined."
+
+	echo "applying '$template_name' template..."
+
+	echo "template variables: ${!TEMPLATE_VARIABLES[@]}"
+
+	declare -A work_paths=()
+
+	local default_dest
+
+	# configurated paths
+	for item_name in "${!TEMPLATE_DESTINATION_DIRS[@]}"; do
+		[[ "$item_name" == "*" ]] && default_dest="${TEMPLATE_DESTINATION_DIRS["*"]}" && continue
+
+		local item_path="$template_dir/$item_name"
+		[[ -f "${item_path}.fr" ]] && item_path="${item_path}.fr" # the item is a template file
+
+		local item_dest="${TEMPLATE_DESTINATION_DIRS["$item_name"]}"
+		# [[ ! -d "$item_dest" ]] && mkdir -p "$item_dest" && created_dirs+=("$item_dest")
+
+		if [[ -d "$item_path" ]]; then
+			for sub_item_path in $(find "$item_path" -mindepth 1 -print); do
+				local sub_item_name="${sub_item_path#"$item_path/"}"
+				local sub_item_dest="$item_dest/$sub_item_name"
+				work_paths["$sub_item_path"]="$sub_item_dest"
+			done
+		else
+			work_paths["$item_path"]="$item_dest"
+		fi
+	done
+
+	for item_path in $(find "$template_dir" -mindepth 1 -type f -print | tr '\n' ' '); do
+		[[ ! -z "${work_paths["$item_path"]}" ]] && continue
+		local item_name="${item_path#"$template_dir/"}"
+		local item_dest="$default_dest/$item_name"
+		work_paths["$item_path"]="$item_dest"
+	done
+
+	for item_path in ${!work_paths[@]}; do
+		local item_name="${item_path#"$template_dir/"}"
+		local item_dest="${work_paths["$item_path"]}"
+
+		# make sure that the destination dir exists
+		local item_dir="$(dirname "$item_dest")"
+		if [[ ! -d "$item_dir" ]]; then
+			mkdir -p "$item_dir"
+			created_dirs+=("$item_dir")
+		fi
+
+		if [[ "$item_name" == *".fr" ]]; then
+			# item is a template file
+			item_dest="${item_dest%".fr"}"
+			echo "'$item_name' will be parsed and placed in: $item_dest"
+
+			# parse the file
+			local temp_file="$(mktemp)"
+			cp "$item_path" "$temp_file"
+			for var_name in ${!TEMPLATE_VARIABLES[@]}; do
+				local var_value="${TEMPLATE_VARIABLES["$var_name"]}"
+				sed -i "s/%@$var_name%/$var_value/g" "$temp_file"
+			done
+
+			local parsed_file="$temp_file"
+			cp "$parsed_file" "$item_dest"
+
+		else
+			# item is a template file
+			echo "'$item_name' will be placed in: $item_dest"
+			cp "$item_path" "$item_dest"
+		fi
+
+		echo -e "done!\n"
+	done
+
+	echo "all done!"
+}
+
+main () {
+	if [[ -z "$1" ]]; then
+		show_help
+	else
+		case "$1" in
+			'apply' | '-a' )
+				[[ -z "$2" ]] && err "template name is required."
+				apply_template "$2"
+				;;
+			'version' | '-v' )
+				show_version
+				;;
+			'help' | '-h' )
+				show_help
+				;;
+			* )
+				err "invalid option: $1"
+				;;
+		esac
+	fi
+	exit 0
+}
+
+main "$@"
