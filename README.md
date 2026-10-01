@@ -1,3 +1,9 @@
-# fuck-rice (fr)
+<p align="center">
+    <img res="assets/logo.png" width="600">
+</p>
 
-Personal tool for creating configuration files from templates. Useful for customizing the environment.
+<p align="center">
+    Nice personal tool for creating dotfiles from templates. Useful for customizing the environment.
+</p>
+
+---
