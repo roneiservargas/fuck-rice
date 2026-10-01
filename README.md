@@ -1,3 +1,3 @@
 # fuck-rice (fr)
 
-Personal tool to create dotfiles from templates.
+Personal tool for creating configuration files from templates. Useful for customizing the environment.
