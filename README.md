@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    Nice personal tool for creating dotfiles from templates. Useful for customizing the environment.
+    <h3>Nice personal tool for creating dotfiles from templates. Useful for customizing the environment.</h3>
 </p>
 
 ---
