@@ -24,6 +24,7 @@ show_help () {
 	echo "  fr <command> [arguments]..."
 	echo "" # blank line
 	echo "  apply, -a    apply a template."
+	echo "  list, -l     list available a template."
 	echo "  help, -h     display this help."
 	echo "  version, -v  show the program version."
 	echo "" # blank line
@@ -121,6 +122,14 @@ apply_template () {
 	echo "all done!"
 }
 
+list_templates () {
+	# available templates:
+	for i in $(dir "$TEMPLATES_DIR"); do
+		echo "$i"
+	done
+	echo "" # blank line
+}
+
 reload_config () {
 	# reload the .Xresources
 	xrdb -merge ~/.Xresources
@@ -138,6 +147,9 @@ main () {
 			'apply' | '-a' )
 				[[ -z "$2" ]] && err "template name is required."
 				apply_template "$2"
+				;;
+			'list' | '-l' )
+				list_templates
 				;;
 			'version' | '-v' )
 				show_version

@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# fuck-rice configuration (frc)
+#
+
+declare -A KEY_VALUES=()

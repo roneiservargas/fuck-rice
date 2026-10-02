@@ -1,0 +1,29 @@
+! ============================================
+! Suckless Terminal (st) - Tema Google (Gogh)
+! ============================================
+
+st.font: %@ui.font% Mono:size=10
+st.foreground:         #1D1F21
+st.background:         #C5C8C6
+st.cursorColor: 			 #1D1F21
+st.cursorColorReverse: #C5C8C6
+
+st.color0:              #1D1F21
+st.color1:              #CC342B
+st.color2:              #198844
+st.color3:              #FBA922
+st.color4:              #3971ED
+st.color5:              #A36AC7
+st.color6:              #3971ED
+st.color7:              #C5C8C6
+
+st.color8:              #969896
+st.color9:              #CC342B
+st.color10:             #198844
+st.color11:             #FBA922
+st.color12:             #3971ED
+st.color13:             #A36AC7
+st.color14:             #3971ED
+st.color15:             #FFFFFF
+
+st.termname:            st-256color

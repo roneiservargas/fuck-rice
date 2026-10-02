@@ -1,0 +1,46 @@
+[global]
+    icon_theme = %@gtk.icons%
+    enable_recursive_icon_lookup = true
+    width = 300
+    height = 300
+    origin = top-right
+    offset = 10x30
+    progress_bar = true
+    progress_bar_height = 10
+    separator_height = 2
+    padding = 8
+    frame_width = 2
+    frame_color = "%@colors.accent%"
+    font = %@ui.font% 9
+    format = "<b>%s</b>\n%b"
+    alignment = left
+    vertical_alignment = center
+    icon_position = left
+    max_icon_size = 128
+    min_icon_size = 32
+    title = Dunst
+    class = Dunst
+    mouse_left_click = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background = "%@colors.bg%"
+    foreground = "%@colors.fg-alt%"
+    timeout = 10
+    default_icon = dialog-information
+
+[urgency_normal]
+    background = "%@colors.bg%"
+    foreground = "%@colors.fg%"
+    timeout = 10
+    override_pause_level = 30
+    default_icon = dialog-information
+
+[urgency_critical]
+    background = "%@colors.bg-alt%"
+    foreground = "%@colors.fg%"
+    frame_color = "%@colors.accent%"
+    timeout = 0
+    override_pause_level = 60
+    default_icon = dialog-warning
